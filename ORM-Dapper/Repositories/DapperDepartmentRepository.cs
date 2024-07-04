@@ -35,9 +35,9 @@ public class DapperDepartmentRepository : IDepartmentRepository
         _conn.Execute("DELETE FROM departments WHERE DepartmentID = @id;", new { id });
     }
 
-    public IEnumerable<Department> GetDepartment(int id)
+    public Department GetSingleDepartment(int id)
     {
-        return _conn.Query<Department>("SELECT * FROM departments WHERE DepartmentID = @id;", new { id });
+        return _conn.QuerySingle<Department>("SELECT * FROM departments WHERE DepartmentID = @id;", new { id });
     }
 
     public void UpdateDepartment(int id, string name)

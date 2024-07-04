@@ -13,7 +13,7 @@ public interface IDepartmentRepository
 
     public IEnumerable<Department> GetAllDepartments(); // READ ALL
 
-    public IEnumerable<Department> GetDepartment(int id);         // READ SINGLE
+    public Department GetSingleDepartment(int id);         // READ SINGLE
 
     public void UpdateDepartment(int id, string name);         // UPDATE
 

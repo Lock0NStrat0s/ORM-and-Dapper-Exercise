@@ -1,4 +1,5 @@
-﻿using ORM_Dapper.Models;
+﻿using Dapper;
+using ORM_Dapper.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,9 +18,9 @@ public class DapperProductRepository : IProductRepository
         _conn = conn;
     }
 
-    public void CreateProduct(string name, double price, int categoryID)
+    public void CreateProduct(string name, double price, int categoryID, string stock)
     {
-        throw new NotImplementedException();
+        _conn.Execute("INSERT INTO products (name, price, categoryID, stocklevel) VALUES (@name, @price, @categoryID, @stocklevel);", new { name, price, categoryID, stocklevel = stock });
     }
 
     public void DeleteProduct(int id)
@@ -29,15 +30,15 @@ public class DapperProductRepository : IProductRepository
 
     public IEnumerable<Product> GetAllProducts()
     {
-        throw new NotImplementedException();
+        return _conn.Query<Product>("SELECT * FROM products;");
     }
 
     public Product GetSingleProduct(int productID)
     {
-        throw new NotImplementedException();
+        return _conn.QuerySingle<Product>("SELECT * FROM products WHERE productID = @productID", new { productID });
     }
 
-    public void UpdateProduct(Product p)
+    public void UpdateProduct(int id, Product p)
     {
         throw new NotImplementedException();
     }

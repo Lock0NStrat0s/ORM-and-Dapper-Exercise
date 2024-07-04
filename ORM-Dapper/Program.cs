@@ -21,7 +21,7 @@ public class Program
         IDbConnection conn = new MySqlConnection(connString);
 
         // department CRUD
-        RunDepartment(conn);
+        //RunDepartment(conn);
 
         // product CRUD
         RunProduct(conn);
@@ -29,7 +29,19 @@ public class Program
 
     private static void RunProduct(IDbConnection conn)
     {
+        // create connection to db
+        var productRepo = new DapperProductRepository(conn);
 
+        // create new product
+        //productRepo.CreateProduct("IN DA JUNGLE, DA MIGHTY JUNGLE!", 12.34, 10, "9999");
+
+        // store all products as an IEnumerable
+        var products = productRepo.GetAllProducts();
+        //products.ToList().ForEach(x => Console.WriteLine(x.Name + ": " + x.Price));
+
+        // get single product
+        var product = productRepo.GetSingleProduct(940);
+        Console.WriteLine(product.Name + " " + product.Price);
     }
 
     private static void RunDepartment(IDbConnection conn)
@@ -50,14 +62,14 @@ public class Program
         //departmentRepo.UpdateDepartment(6, "AR");
 
         // display all departments
-        departments = departmentRepo.GetAllDepartments();
-        departments.ToList().ForEach(x => Console.WriteLine($"\n{x.DepartmentID}: {x.Name}"));
+        //departments = departmentRepo.GetAllDepartments();
+        //departments.ToList().ForEach(x => Console.WriteLine($"\n{x.DepartmentID}: {x.Name}"));
 
         // delete department from db
         //departmentRepo.DeleteDepartment(7);
 
         // display all departments
-        departments = departmentRepo.GetAllDepartments();
-        departments.ToList().ForEach(x => Console.WriteLine($"\n{x.DepartmentID}: {x.Name}"));
+        //departments = departmentRepo.GetAllDepartments();
+        //departments.ToList().ForEach(x => Console.WriteLine($"\n{x.DepartmentID}: {x.Name}"));
     }
 }
