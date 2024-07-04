@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORM_Dapper;
+namespace ORM_Dapper.Models;
 
 public class Department
 {

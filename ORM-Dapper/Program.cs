@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using ORM_Dapper.Models;
+using ORM_Dapper.Repositories;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace ORM_Dapper;
@@ -17,15 +20,44 @@ public class Program
 
         IDbConnection conn = new MySqlConnection(connString);
 
+        // department CRUD
+        RunDepartment(conn);
+
+        // product CRUD
+        RunProduct(conn);
+    }
+
+    private static void RunProduct(IDbConnection conn)
+    {
+
+    }
+
+    private static void RunDepartment(IDbConnection conn)
+    {
+        // create connection to db
         var departmentRepo = new DapperDepartmentRepository(conn);
 
-        //departmentRepo.InsertDepartment("Bippity Bop Dept");
+        // create new department
+        //departmentRepo.CreateDepartment("XR");
 
+        // store all departments as an IEnumerable
         var departments = departmentRepo.GetAllDepartments();
 
-        foreach (var item in departments)
-        {
-            Console.WriteLine($"{item.DepartmentID}: {item.Name}");
-        }
+        // display all departments
+        departments.ToList().ForEach(x => Console.WriteLine($"\n{x.DepartmentID}: {x.Name}"));
+
+        // update created department
+        //departmentRepo.UpdateDepartment(6, "AR");
+
+        // display all departments
+        departments = departmentRepo.GetAllDepartments();
+        departments.ToList().ForEach(x => Console.WriteLine($"\n{x.DepartmentID}: {x.Name}"));
+
+        // delete department from db
+        //departmentRepo.DeleteDepartment(7);
+
+        // display all departments
+        departments = departmentRepo.GetAllDepartments();
+        departments.ToList().ForEach(x => Console.WriteLine($"\n{x.DepartmentID}: {x.Name}"));
     }
 }
