@@ -25,7 +25,9 @@ public class DapperProductRepository : IProductRepository
 
     public void DeleteProduct(int id)
     {
-        throw new NotImplementedException();
+        _conn.Execute("DELETE FROM products WHERE productID = @id;", new { id });
+        _conn.Execute("DELETE FROM sales WHERE productID = @id;", new { id });
+        _conn.Execute("DELETE FROM reviews WHERE productID = @id;", new { id });
     }
 
     public IEnumerable<Product> GetAllProducts()
@@ -40,6 +42,6 @@ public class DapperProductRepository : IProductRepository
 
     public void UpdateProduct(int id, Product p)
     {
-        throw new NotImplementedException();
+        _conn.Execute("UPDATE products SET name = @name, price = @price, categoryID = @category, stocklevel = @stock WHERE productID = @id;", new { id, name = p.Name, price = p.Price, category = p.CategoryID, stock = p.StockLevel });
     }
 }

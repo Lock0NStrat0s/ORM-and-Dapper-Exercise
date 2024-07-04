@@ -33,6 +33,7 @@ public class DapperDepartmentRepository : IDepartmentRepository
     public void DeleteDepartment(int id)
     {
         _conn.Execute("DELETE FROM departments WHERE DepartmentID = @id;", new { id });
+        _conn.Execute("DELETE FROM categories WHERE DepartmentID = @id;", new { id });
     }
 
     public Department GetSingleDepartment(int id)

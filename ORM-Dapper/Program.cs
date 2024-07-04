@@ -33,15 +33,28 @@ public class Program
         var productRepo = new DapperProductRepository(conn);
 
         // create new product
-        //productRepo.CreateProduct("IN DA JUNGLE, DA MIGHTY JUNGLE!", 12.34, 10, "9999");
+        //productRepo.CreateProduct("duck force", 0.99, 10, "1");
 
         // store all products as an IEnumerable
         var products = productRepo.GetAllProducts();
         //products.ToList().ForEach(x => Console.WriteLine(x.Name + ": " + x.Price));
 
         // get single product
-        var product = productRepo.GetSingleProduct(940);
-        Console.WriteLine(product.Name + " " + product.Price);
+        //var product = productRepo.GetSingleProduct(941);
+        //Console.WriteLine(product.Name + " " + product.Price);
+
+        // update created product
+        Product prod = new Product
+        {
+            Name = "quackerjack",
+            Price = 1.99,
+            CategoryID = 10,
+            StockLevel = "1"
+        };
+        productRepo.UpdateProduct(942, prod);
+
+        // delete product from db
+        //productRepo.DeleteProduct(941);
     }
 
     private static void RunDepartment(IDbConnection conn)
